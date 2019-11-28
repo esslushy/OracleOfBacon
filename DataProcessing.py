@@ -8,8 +8,12 @@ def get_actor_info(file_location):
     """
     actor_id_to_name = {}
     actor_id_to_titles = {}
-    # Gather data
-    for line in open(file_location, errors='ignore'):
+    # Read file
+    lines = open(file_location, errors='ignore')
+    # Skip header
+    next(lines)
+    # Process data
+    for line in lines:
         # Split lines into their major parts
         parts = line.replace('\n', '')
         parts = parts.split('\t')
@@ -17,7 +21,9 @@ def get_actor_info(file_location):
         actor_id_to_name[parts[0]] = parts[1]
         # parts[0] is id and parts[5].split(',') gets a list of movies
         actor_id_to_titles[parts[0]] = parts[5].split(',')
-    return actor_id_to_name, actor_id_to_titles
+    # Build name to actor_id for easy lookup
+    name_to_actor_id = {name.lower() : actor_id for actor_id, name in actor_id_to_name.items()}
+    return actor_id_to_name, name_to_actor_id, actor_id_to_titles
 
 def get_actors_for_movie(file_location):
     """
@@ -27,8 +33,12 @@ def get_actors_for_movie(file_location):
         file_location: location of the data file that holds the actor to title information
     """
     title_to_actor_ids = {}
-    # Gather and unite data
-    for line in open(file_location, errors='ignore'):
+    # Read file
+    lines = open(file_location, errors='ignore')
+    # Skip header
+    next(lines)
+    # Process data
+    for line in lines:
         # Split lines into their major parts
         parts = line.replace('\n', '')
         parts = parts.split('\t')
@@ -49,8 +59,12 @@ def get_title_id_to_title(file_location):
         file_location: Location of the data file that holds the title information
     """
     title_id_to_title  = {}
-    # Gather and parse data
-    for line in open(file_location, errors='ignore'):
+    # Read file
+    lines = open(file_location, errors='ignore')
+    # Skip header
+    next(lines)
+    # Process data
+    for line in lines:
         # Split lines into their major parts
         parts = line.replace('\n', '')
         parts = parts.split('\t')
