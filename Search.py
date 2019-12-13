@@ -24,10 +24,10 @@ else: # If it doesn't exist, load the data and make the file
             try:
                 for actor in title_to_actor_ids[title]:
                     nodes[actor_id].add_neighbor(title, actor)
-            except KeyError: # Sometimes the movie doesn't exist for whatever reason so just continue on
+            except KeyError as e: # Sometimes the movie doesn't exist for whatever reason so just continue on
                 continue
     # Save nodes
-    pickle.dump(nodes, open('nodes.pickle', 'wb'))
+    # pickle.dump(nodes, open('nodes.pickle', 'wb'))
 
 # Dictionary that stores the destinations we have found and the source from where they are found in actor_id
 dest_src = {}

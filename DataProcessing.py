@@ -20,9 +20,12 @@ def get_actor_info(file_location):
         # parts[0] is id and parts[1] is the actor's name
         actor_id_to_name[parts[0]] = parts[1]
         # parts[0] is id and parts[5].split(',') gets a list of movies
-        actor_id_to_titles[parts[0]] = parts[5].split(',')
+        actor_id_to_titles[parts[0]] = parts[-1].split(',')
     # Build name to actor_id for easy lookup
-    name_to_actor_id = {name.lower() : actor_id for actor_id, name in actor_id_to_name.items()}
+    name_to_actor_id = {}
+    for actor_id, name in actor_id_to_name.items():
+        if name not in name_to_actor_id:
+            name_to_actor_id[name.lower()] = actor_id
     return actor_id_to_name, name_to_actor_id, actor_id_to_titles
 
 def get_actors_for_movie(file_location):
