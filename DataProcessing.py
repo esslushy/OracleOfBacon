@@ -24,8 +24,10 @@ def get_actor_info(file_location):
     # Build name to actor_id for easy lookup
     name_to_actor_id = {}
     for actor_id, name in actor_id_to_name.items():
+        # Lower case the name to account for misinputs
+        name = name.lower()
         if name not in name_to_actor_id:
-            name_to_actor_id[name.lower()] = actor_id
+            name_to_actor_id[name] = actor_id
     return actor_id_to_name, name_to_actor_id, actor_id_to_titles
 
 def get_actors_for_movie(file_location):
